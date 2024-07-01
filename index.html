@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="w-current-weather-data">
+        <div class="w-forecast">
+          <div class="w-forecast-status"></div>
+          <div class="w-forecast-data"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script crossorigin="anonymous">
+    let weather = {};
+    let weatherData;
+    async function getWeather(city) {
+      const weatherResponse = await fetch(
+        `https://api.weatherapi.com/v1/forecast.json?key=cd81d5e587ec478f95f194224242706&q=${city}&days=5&lang=es`
+      );
+      return (weatherData = await weatherResponse.json());
+    }
+    async function setLocation() {
+      const city = prompt("introduce a city");
+      await getWeather(city);
+      console.log(weatherData);
+    }
+    async function CatchWeatherData() {
+      await setLocation();
+      return (weather = {
+        location: { ...weatherData.location },
+        current: { ...weatherData.current },
+        forecast: { ...weatherData.forecast },
+      });
+    }
+    async function showWeatherData() {}
+  </script>
+</html>
