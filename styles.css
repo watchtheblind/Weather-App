@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* adjust the height to your liking */
+  font-family: "Open Sans", sans-serif;
+}
+.w-forecast {
+  width: 400px;
+  height: 250px;
+  border-radius: 10px;
+  border: solid 3px;
+  padding: 1.5rem;
+}
+.w-forecast-condition {
+  display: flex;
+  margin-left: 4%;
+  justify-content: start;
+}
+.w-forecast-data {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+  border: 2px dashed;
+  /* flex-wrap: wrap; */
+}
+.w-forecast-icon {
+  border: 2px dashed;
+  object-fit: cover;
+  height: 150px;
+  width: 100%;
+}
+.row {
+  display: flex;
+  justify-content: center;
+  border: 2px dashed;
+}
+.column {
+  display: grid;
+  justify-content: center;
+  border: 2px dashed;
+  border-color: yellowgreen;
+}
+
+.w-forecast-datetime {
+  flex: 1 1 25%;
+}
