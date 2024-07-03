@@ -13,17 +13,17 @@
         <aside class="w-forecast">
           <div class="w-forecast-condition"></div>
           <div class="w-forecast-data">
-            <div class="column">
+            <div class="column one">
               <img alt="weather-icon" class="w-forecast-icon" />
             </div>
-            <div class="column">
+            <div class="column two">
               <span class="row">
                 <div class="w-forecast-temp"></div>
                 <div class="w-forecast-temp-F"></div>
               </span>
               <div class="w-forecast-fl"></div>
             </div>
-            <div class="column">
+            <div class="column three">
               <div class="w-forecast-datetime"></div>
               <div class="w-forecast-humidity"></div>
               <div class="w-forecast-wind"></div>
@@ -73,15 +73,16 @@
       forecastTitle.textContent =
         "Weather in " + weather.location.name + ", " + weather.location.country;
       forecastHumidity.textContent =
-        "Humidity " + weather.current.humidity + "%";
-      forecastDatetime.textContent = weather.location.localtime;
-      forecastWind.textContent = "Wind: " + weather.current.wind_kph + " kph";
+        "Humidity: " + weather.current.humidity + "%";
+      const Datetime = new Date(
+        Date.parse(weather.location.localtime.replace(" ", "T"))
+      );
+      const dayOfWeek = Datetime.toLocaleString("en-US", { weekday: "short" });
+      const hour = Datetime.toLocaleTimeString();
+      forecastDatetime.textContent = `${dayOfWeek} ${hour}`;
+      forecastWind.textContent = "Wind: " + weather.current.wind_kph + "kph";
       forecastFeelsLike.textContent =
-        "Feels like " +
-        weather.current.feelslike_c +
-        "°C / " +
-        weather.current.feelslike_c +
-        "°F";
+        "Feels like " + weather.current.feelslike_c + "°C";
     }
 
     showWeatherData();
