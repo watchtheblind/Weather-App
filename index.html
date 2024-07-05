@@ -8,9 +8,9 @@
   </head>
   <body>
     <main class="container">
-      <article class="w-current-weather-data">
+      <section class="w-current-weather-data">
         <div class="w-title"></div>
-        <aside class="w-forecast">
+        <article class="w-forecast">
           <div class="w-forecast-condition"></div>
           <div class="w-forecast-data">
             <div class="column one">
@@ -29,62 +29,46 @@
               <div class="w-forecast-wind"></div>
             </div>
           </div>
-        </aside>
-      </article>
+        </article>
+      </section>
     </main>
+    <aside class="w-forecast-days">
+      <article class="w-day monday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+      <article class="w-day tuesday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+      <article class="w-day wednesday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+      <article class="w-day thursday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+      <article class="w-day friday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+      <article class="w-day saturday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+      <article class="w-day sunday">
+        <div class="w-day-header"></div>
+        <div class="w-day-body"></div>
+        <div class="w-day-footer"></div>
+      </article>
+    </aside>
   </body>
-  <script crossorigin="anonymous">
-    const forecastTitle = document.querySelector(".w-title");
-    const forecastCondition = document.querySelector(".w-forecast-condition");
-    const forecastTemp = document.querySelector(".w-forecast-temp");
-    const forecastTempF = document.querySelector(".w-forecast-temp-F");
-    const forecastIcon = document.querySelector(".w-forecast-icon");
-    const forecastHumidity = document.querySelector(".w-forecast-humidity");
-    const forecastWind = document.querySelector(".w-forecast-wind");
-    const forecastDatetime = document.querySelector(".w-forecast-datetime");
-    const forecastFeelsLike = document.querySelector(".w-forecast-fl");
-    let weather = {};
-    let weatherData;
-    async function getWeather() {
-      const weatherResponse = await fetch(
-        `https://api.weatherapi.com/v1/forecast.json?key=cd81d5e587ec478f95f194224242706&q=maracay&days=5`
-      );
-      return (weatherData = await weatherResponse.json());
-    }
-    async function setLocation() {
-      // const city = prompt("introduce a city");
-      await getWeather();
-      console.log(weatherData);
-    }
-    async function CatchWeatherData() {
-      await setLocation();
-      return (weather = {
-        location: { ...weatherData.location },
-        current: { ...weatherData.current },
-        forecast: { ...weatherData.forecast },
-      });
-    }
-    async function showWeatherData() {
-      await CatchWeatherData();
-      forecastCondition.textContent = weather.current.condition.text;
-      forecastIcon.src = "https:" + weather.current.condition.icon;
-      forecastTemp.textContent = weather.current.temp_c + "°";
-      forecastTempF.textContent = weather.current.temp_f + " F°";
-      forecastTitle.textContent =
-        "Weather in " + weather.location.name + ", " + weather.location.country;
-      forecastHumidity.textContent =
-        "Humidity: " + weather.current.humidity + "%";
-      const Datetime = new Date(
-        Date.parse(weather.location.localtime.replace(" ", "T"))
-      );
-      const dayOfWeek = Datetime.toLocaleString("en-US", { weekday: "short" });
-      const hour = Datetime.toLocaleTimeString();
-      forecastDatetime.textContent = `${dayOfWeek} ${hour}`;
-      forecastWind.textContent = "Wind: " + weather.current.wind_kph + "kph";
-      forecastFeelsLike.textContent =
-        "Feels like " + weather.current.feelslike_c + "°C";
-    }
-
-    showWeatherData();
-  </script>
+  <script crossorigin="anonymous" src="app.js"></script>
 </html>
