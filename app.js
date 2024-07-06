@@ -7,6 +7,7 @@ const forecastHumidity = document.querySelector(".w-forecast-humidity");
 const forecastWind = document.querySelector(".w-forecast-wind");
 const forecastDatetime = document.querySelector(".w-forecast-datetime");
 const forecastFeelsLike = document.querySelector(".w-forecast-fl");
+const citySearch = document.querySelector("cityplaceholder");
 const days = [
   "monday",
   "tuesday",
@@ -16,6 +17,14 @@ const days = [
   "saturday",
   "sunday",
 ];
+const cityInput = document.getElementById("cityplaceholder");
+const citySend = document.getElementById("submitter");
+citySend.addEventListener("click", (e) => {
+  e.preventDefault();
+  const cityValue = cityInput.value;
+  console.log(cityValue);
+  showWholeUI(cityValue);
+});
 
 const dayCards = days.map((day) => document.querySelector(`.${day}`));
 //here, we take all the headers of our forecast days card. This is for the purpose of adding the actual day name and the following 6 later on the code
@@ -33,18 +42,14 @@ const dayForecastCardFooters = dayCards.map((dayCard) =>
 let weather = {};
 let weatherData;
 
-async function getWeather() {
+async function getWeather(city = "london") {
   const weatherResponse = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=cd81d5e587ec478f95f194224242706&q=maracay&days=7`
+    `https://api.weatherapi.com/v1/forecast.json?key=cd81d5e587ec478f95f194224242706&q=${city}&days=7`
   );
   return (weatherData = await weatherResponse.json());
 }
-async function setLocation() {
-  // const city = prompt("introduce a city");
-  await getWeather();
-}
-async function CatchWeatherData() {
-  await setLocation();
+async function CatchWeatherData(city) {
+  await getWeather(city);
   return (weather = {
     location: { ...weatherData.location },
     current: { ...weatherData.current },
@@ -58,8 +63,8 @@ function formatDateTime(dateString, lenght) {
     hour: datetime.toLocaleTimeString(),
   };
 }
-async function showWeatherData() {
-  await CatchWeatherData();
+async function showWeatherData(city) {
+  await CatchWeatherData(city);
   const datetime = formatDateTime(weather.location.localtime, "short");
   forecastCondition.textContent = weather.current.condition.text;
   forecastIcon.src = "https:" + weather.current.condition.icon;
@@ -103,13 +108,13 @@ function showForecastDaysData() {
         String(weather.forecast.forecastday[index].day.maxtemp_c) +
         "°. " +
         "   " +
-        String(weather.forecast.forecastday[index].day.maxtemp_f) +
+        String(weather.forecast.forecastday[index].day.mintemp_c) +
         "°.";
     });
   });
 }
-async function showWholeUI() {
-  await showWeatherData();
+async function showWholeUI(city) {
+  await showWeatherData(city);
   showForecastDaysData();
 }
 showWholeUI();
