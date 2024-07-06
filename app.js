@@ -17,6 +17,8 @@ const days = [
   "saturday",
   "sunday",
 ];
+
+//execute the functions when the search button is clicked
 const cityInput = document.getElementById("cityplaceholder");
 const citySend = document.getElementById("submitter");
 citySend.addEventListener("click", (e) => {
@@ -63,6 +65,7 @@ function formatDateTime(dateString, lenght) {
     hour: datetime.toLocaleTimeString(),
   };
 }
+//filling the main card with their appropriated data
 async function showWeatherData(city) {
   await CatchWeatherData(city);
   const datetime = formatDateTime(weather.location.localtime, "short");
@@ -78,6 +81,7 @@ async function showWeatherData(city) {
   forecastFeelsLike.textContent =
     "Feels like " + weather.current.feelslike_c + "°C";
 }
+//filling the seven tiny cards with their proper data
 function showForecastDaysData() {
   dayForecastCardHeaders.forEach((headers, index) => {
     headers.forEach((header) => {
@@ -90,16 +94,11 @@ function showForecastDaysData() {
   });
   dayForecastCardBodies.forEach((bodies, index) => {
     bodies.forEach((body) => {
-      console.log(body);
-      const img = document.createElement("img");
-      img.src =
-        "https:" + weather.forecast.forecastday[index].day.condition.icon;
-      img.className = "w-card-img";
-      body.appendChild(img);
-      // body.innerHTML +=
-      //   String(weather.forecast.forecastday[index].day.maxtemp_c) +
-      //   " " +
-      //   String(weather.forecast.forecastday[index].day.maxtemp_f);
+      const images = body.querySelectorAll(".w-card-img");
+      images.forEach((img) => {
+        img.src =
+          "https:" + weather.forecast.forecastday[index].day.condition.icon;
+      });
     });
   });
   dayForecastCardFooters.forEach((footers, index) => {

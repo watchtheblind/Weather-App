@@ -47,10 +47,11 @@ main {
 }
 
 .w-forecast-temp {
-  font-size: 50px;
+  font-size: 48px;
 }
 .w-forecast-condition {
   font-size: 25px;
+  padding-bottom: 3%;
 }
 .w-title {
   display: flex;
@@ -59,14 +60,14 @@ main {
   font-weight: 600;
 }
 .w-forecast-fl {
-  font-size: 17px;
+  font-size: 15px;
   padding: 6%;
   display: flex;
   justify-content: center;
   font-weight: 500;
 }
 .w-forecast-temp-F {
-  font-size: 15px;
+  font-size: 12px;
   display: flex;
   align-items: end;
   margin-bottom: 7%;
