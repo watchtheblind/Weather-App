@@ -92,6 +92,7 @@ function showForecastDaysData() {
       header.textContent = `${datetime.dayOfWeek}`;
     });
   });
+  //adding images to the bodies of the tiny cards
   dayForecastCardBodies.forEach((bodies, index) => {
     bodies.forEach((body) => {
       const images = body.querySelectorAll(".w-card-img");
